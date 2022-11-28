@@ -23,9 +23,18 @@ h1, p {
 <body>
 
 <h1>Leje, czy ni?</h1>
-<p>20 °C</p>
+<p id="demo">Nagrowóm...</p>
 
-<img class="center" width="300" height="350" src="https://cdn-icons-png.flaticon.com/512/3217/3217126.png">
+<script>
+var xmlHttp = new XMLHttpRequest();
+xmlHttp.open( "GET", "https://www.7timer.info/bin/astro.php?lon=18.764594&lat=49.576715&ac=0&unit=metric&output=json&tzshift=0", false );
+xmlHttp.send( null );
+
+const obj = JSON.parse(xmlHttp.responseText);
+console.log(obj)
+document.getElementById("demo").innerHTML = obj.dataseries[0].temp2m + " °C"; 
+
+</script>
 
 </body>
 </html>
