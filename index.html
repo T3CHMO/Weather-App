@@ -23,7 +23,8 @@ h1, p {
 <body>
 
 <h1>Leje, czy ni?</h1>
-<p id="demo">Nagrowóm...</p>
+<p id="temp">Nagrowóm...</p>
+<p id="pogoda">Nagrowóm...</p>
 
 <script>
 var xmlHttp = new XMLHttpRequest();
@@ -31,8 +32,18 @@ xmlHttp.open( "GET", "https://www.7timer.info/bin/astro.php?lon=18.764594&lat=49
 xmlHttp.send( null );
 
 const obj = JSON.parse(xmlHttp.responseText);
-console.log(obj)
-document.getElementById("demo").innerHTML = obj.dataseries[0].temp2m + " °C"; 
+const data = obj.dataseries[0];
+if( data.prec_type === "none") {
+	data.prec_type = "Ni, nie leje!"
+} 
+if( data.prec_type === "snow") {
+	data.prec_type = "Kurzi!"
+}
+if( data.prec_type === "rain") {
+	data.prec_type = "Leje!"
+}
+document.getElementById("temp").innerHTML = data.temp2m + " °C"; 
+document.getElementById("pogoda").innerHTML = data.prec_type; 
 
 </script>
 
