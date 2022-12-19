@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" integrity="sha512-q3eWabyZPc1XTCmF+8/LuE1ozpg5xxn7iO89yfSOd5/oKvyqLngoNGsx8jq92Y8eXJ/IRxQbEC+FGSYxtk2oiw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <title>Leje, czy ni?</title>
 <style>
 body {
@@ -25,6 +26,7 @@ h1, p {
 <h1>Leje, czy ni?</h1>
 <p id="temp">Nagrowóm...</p>
 <p id="pogoda">Nagrowóm...</p>
+<p id="icon" style="font-size: 60px"></p>
 
 <script>
 var xmlHttp = new XMLHttpRequest();
@@ -35,12 +37,15 @@ const obj = JSON.parse(xmlHttp.responseText);
 const data = obj.dataseries[0];
 if( data.prec_type === "none") {
 	data.prec_type = "Ni, nie leje!"
+	document.getElementById("icon").className = "fas fa-sun center";
 } 
 if( data.prec_type === "snow") {
 	data.prec_type = "Kurzi!"
+	document.getElementById("icon").className = "fas fa-snowflake center";
 }
 if( data.prec_type === "rain") {
 	data.prec_type = "Leje!"
+	document.getElementById("icon").className = "fas fa-cloud-rain center";
 }
 document.getElementById("temp").innerHTML = data.temp2m + " °C"; 
 document.getElementById("pogoda").innerHTML = data.prec_type; 
